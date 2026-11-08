@@ -1,0 +1,19 @@
+name: NexLand status check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Check server status
+        env:
+          PTERODACTYL_API_KEY: ${{ secrets.PTERODACTYL_API_KEY }}
+        run: python3 check_server.py
